@@ -17,6 +17,40 @@ class Bookmark {
 	}
 }
 
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	console.log(
+		sender.tab
+			? "from a content script:" + sender.tab.url
+			: "from the extension"
+	);
+	if (request.reqType == "assets") {
+		console.log("assets");
+		chrome.storage.local.get(["accessToken"], async token => {
+			if (token.accessToken) {
+				let { data, type } = request;
+				console.log(data);
+				try {
+					let res = await fetch("http://localhost:5000/api/assets", {
+						method: "POST",
+						body: JSON.stringify({
+							data,
+							type,
+						}),
+						headers: {
+							"Content-type": "application/json; charset=UTF-8",
+							Authorization: `Bearer ${token.accessToken} `,
+						},
+					});
+					sendResponse(true);
+				} catch (err) {
+					console.log(err);
+					sendResponse(false);
+				}
+			}
+		});
+	}
+});
+
 chrome.bookmarks.onCreated.addListener((id, bookmarkTree) => {
 	const isFolder =
 		bookmarkTree.url === null || bookmarkTree.url === undefined;
@@ -28,7 +62,7 @@ chrome.bookmarks.onCreated.addListener((id, bookmarkTree) => {
 		url: isFolder ? "" : bookmarkTree.url,
 	});
 
-	chrome.storage.local.get(["accessToken"], (token) => {
+	chrome.storage.local.get(["accessToken"], token => {
 		sendBookmarkToSever(bookmark, token);
 	});
 });

@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("form");
+	const greetingTag = document.getElementById("greeting");
 
+	// chrome.storage.local.get(["accessToken", "username"], data => {
+	// 	if (data.accessToken && data.username) {
+	// 		greetingTag.textContent = `Hello, ${data.username}`;
+	// 		form.style.display = "none";
+	// 	}
+	// });
 	class Bookmark {
 		type = "";
 		id = "";
@@ -22,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	form.addEventListener("submit", (e) => {
+	form.addEventListener("submit", e => {
 		e.preventDefault();
 
 		getBookmarksTreeAndLogin();
@@ -30,10 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const getBookmarksTreeAndLogin = () => {
 		let rootNode;
-		let username = document.querySelector(".username").value;
+		let email = document.querySelector(".email").value;
 		let password = document.querySelector(".password").value;
 
-		chrome.bookmarks.getTree((res) => {
+		chrome.bookmarks.getTree(res => {
 			const element = res[0];
 
 			rootNode = new Bookmark({
@@ -46,11 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			addChildren(element.children, rootNode);
 
-			login(username, password, rootNode);
+			login(email, password, rootNode);
 		});
 	};
 
-	const login = async (username, password, bookmarkTree) => {
+	const login = async (email, password, bookmarkTree) => {
 		// try {
 		// 	const res = await fetch("http://localhost:5000/api/bookmarks", {
 		// 		method: "POST",
@@ -67,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					username,
+					email,
 					password,
 					bookmarkTree,
 				}),
@@ -79,7 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		const data = await res.json();
 		if (data.accessToken) {
 			console.log(data.accessToken);
-			chrome.storage.local.set({ accessToken: data.accessToken });
+			chrome.storage.local.set({
+				accessToken: data.accessToken,
+				username: data.user.username,
+			});
 		} else {
 			console.log(data);
 			console.log("Error");
@@ -87,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 
 	const addChildren = async (childrens = [], currentNode) => {
-		childrens.forEach(async (child) => {
+		childrens.forEach(async child => {
 			const isBookmark =
 				child.children === null || child.children === undefined;
 
