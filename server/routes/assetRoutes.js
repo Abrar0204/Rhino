@@ -14,6 +14,13 @@ router.post("/", authenticateToken, async (req, res) => {
 		}
 
 		if (user.assets) {
+			try {
+				let assets = await Assets.findById(user.assets);
+				assets.assets.push({ data, type });
+				await assets.save();
+			} catch (err) {
+				return res.status(404).json({ error: "assets" });
+			}
 		} else {
 			let assets = new Assets({
 				user: user._id,

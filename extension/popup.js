@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("form");
 	const greetingTag = document.getElementById("greeting");
 
-	// chrome.storage.local.get(["accessToken", "username"], data => {
-	// 	if (data.accessToken && data.username) {
-	// 		greetingTag.textContent = `Hello, ${data.username}`;
-	// 		form.style.display = "none";
-	// 	}
-	// });
+	chrome.storage.local.get(["accessToken", "username"], data => {
+		if (data.accessToken && data.username) {
+			greetingTag.textContent = `Hello, ${data.username}`;
+			form.style.display = "none";
+		}
+	});
 	class Bookmark {
 		type = "";
 		id = "";
