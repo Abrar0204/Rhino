@@ -18,6 +18,8 @@ router.post("/", authenticateToken, async (req, res) => {
 				let assets = await Assets.findById(user.assets);
 				assets.assets.push({ data, type });
 				await assets.save();
+				console.log(assets);
+				return res.status(404).json({ assets });
 			} catch (err) {
 				return res.status(404).json({ error: "assets" });
 			}
