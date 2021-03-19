@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const assetsSchema = new mongoose.Schema({
-	user: {
+	project: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "User",
+		ref: "Project",
 	},
 	assets: [Map],
 });

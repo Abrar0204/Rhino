@@ -12,10 +12,13 @@ require("./services/connectDB")();
 
 const authRoutes = require("./routes/authRoutes");
 const assetRoutes = require("./routes/assetRoutes");
+const projectRoutes = require("./routes/projectRoutes");
+const bookmarkRoutes = require("./routes/bookmarksRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/assets", assetRoutes);
-
+app.use("/api/projects", projectRoutes);
+app.use("/api/bookmarks", bookmarkRoutes);
 if (process.env.NODE_ENV === "production") {
 	//Express serves up static files
 	const __dirname = path.resolve();

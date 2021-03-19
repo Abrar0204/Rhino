@@ -5,9 +5,30 @@ const { User } = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { default: axios } = require("axios");
+const authenticateToken = require("../middleware/authenticateToken");
 
 const generateAccessToken = username =>
 	jwt.sign({ username }, process.env.ACCESS_TOKEN_KEY);
+const getBookmarkIcons = async node => {
+	if (node.type === "bookmark") {
+		let icon = "";
+		try {
+			const res = await axios.get(
+				`https://besticon-demo.herokuapp.com/allicons.json?url=${node.url}`
+			);
+
+			const data = res.data;
+			icon = data.icons[0].url || "";
+		} catch (err) {}
+
+		node.icon = icon;
+		// console.log(node);
+	}
+
+	return Promise.all(
+		node.children.map(async child => await getBookmarkIcons(child))
+	);
+};
 
 router.post("/register", async (req, res) => {
 	try {
@@ -29,9 +50,7 @@ router.post("/register", async (req, res) => {
 
 		res.json({
 			accessToken,
-			user: {
-				username: user.username,
-			},
+			user,
 		});
 	} catch (err) {
 		console.log(err);
@@ -56,36 +75,13 @@ router.post("/login", async (req, res) => {
 		const accessToken = generateAccessToken(user.username);
 		res.json({
 			accessToken,
-			user: {
-				username: user.username,
-			},
+			user,
 		});
 	} catch (err) {
 		console.log(err);
 		res.status(401).json({ error: "Something went wrong" });
 	}
 });
-
-const getBookmarkIcons = async node => {
-	if (node.type === "bookmark") {
-		let icon = "";
-		try {
-			const res = await axios.get(
-				`https://besticon-demo.herokuapp.com/allicons.json?url=${node.url}`
-			);
-
-			const data = res.data;
-			icon = data.icons[0].url || "";
-		} catch (err) {}
-
-		node.icon = icon;
-		// console.log(node);
-	}
-
-	return Promise.all(
-		node.children.map(async child => await getBookmarkIcons(child))
-	);
-};
 
 router.post("/login/extension", async (req, res) => {
 	try {
@@ -120,9 +116,7 @@ router.post("/login/extension", async (req, res) => {
 
 		res.json({
 			accessToken,
-			user: {
-				username: user.username,
-			},
+			user,
 		});
 	} catch (err) {
 		console.log(err);
@@ -130,4 +124,12 @@ router.post("/login/extension", async (req, res) => {
 	}
 });
 
+router.get("/user", authenticateToken, async (req, res) => {
+	try {
+		const user = await User.findOne({ username: req.user.username });
+		res.json(user);
+	} catch (err) {
+		res.status(401).json({ error: "user not found" });
+	}
+});
 module.exports = router;

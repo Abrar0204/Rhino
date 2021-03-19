@@ -1,0 +1,74 @@
+.form {
+	margin: 3rem 0rem;
+	&-item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		position: relative;
+		margin: 2rem 0rem;
+		height: 7rem;
+		input {
+			height: 100%;
+			width: 100%;
+			padding: 0rem 2rem;
+
+			font-size: 1.6rem;
+
+			border: none;
+			border-bottom: 1px solid $primary-color;
+			outline: none;
+
+			background-color: rgba($primary-color, 0);
+			transition: all 0.3s ease;
+
+			&:focus {
+				background-color: rgba($primary-color, 0.04);
+
+				& + label {
+					top: 1rem;
+					left: 1rem;
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+			&:valid {
+				& + label {
+					top: 1rem;
+					left: 1rem;
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+		}
+		label {
+			position: absolute;
+			top: 50%;
+			left: 2rem;
+			transform: translateY(-50%);
+			pointer-events: none;
+			transition: all 0.3s ease;
+		}
+	}
+	&-button {
+		text-align: center;
+		button {
+			width: 90%;
+			padding: 1rem 2rem;
+			margin: 2rem 1rem;
+			background-color: $secondary-color;
+			color: $light-color;
+			font-weight: 600;
+			font-size: 1.8rem;
+			border: none;
+			outline: none;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	&-error {
+		text-align: center;
+		color: red;
+	}
+}

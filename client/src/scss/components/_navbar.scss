@@ -1,0 +1,34 @@
+.navbar {
+	width: 100%;
+	height: 10rem;
+	display: grid;
+	grid-template-rows: 100%;
+	grid-template-columns: 10% 1fr 10%;
+	align-items: center;
+	&-logo {
+		justify-self: center;
+
+		height: 5rem;
+		width: 5rem;
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&-list {
+		justify-self: flex-end;
+
+		&-item {
+			padding: 2rem 3rem;
+			text-decoration: none;
+			color: $primary-color;
+			font-size: 1.8rem;
+			&.selected {
+				border-bottom: 2px solid $primary-color;
+			}
+		}
+	}
+	&-profile {
+		justify-self: center;
+	}
+}

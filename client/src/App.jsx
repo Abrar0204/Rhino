@@ -1,28 +1,35 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import Projects from "./pages/Projects";
+import Timeline from "./pages/Project/Timeline";
+import Bookmarks from "./pages/Project/Bookmarks";
+import Assets from "./pages/Project/Assets";
+import SignIn from "./pages/SignIn";
+import { getUser } from "./redux/actions/authActions";
+import "./scss/main.min.css";
+import Project from "./pages/Project/Project";
+import Navbar from "./components/Navbar";
+import { useDispatch } from "react-redux";
 import Home from "./pages/Home";
+
 const App = () => {
-	const testApi = async () => {
-		try {
-			const { data } = await axios.post("/api/auth/login", {
-				email: "abrar@gmail.com",
-				password: "admin",
-			});
-
-			console.log(data);
-		} catch (err) {
-			console.log(err.message);
-		}
-	};
+	const dispatch = useDispatch();
 	useEffect(() => {
-		testApi();
-	}, []);
-
+		dispatch(getUser());
+	}, [dispatch]);
 	return (
 		<Router>
+			<Navbar />
 			<Switch>
 				<Route component={Home} path="/" exact />
+				<Route component={SignIn} path="/signin" exact />
+
+				<Route component={Projects} path="/projects" exact />
+				<Route component={Project} path="/projects/:id" exact />
+				<Route component={Timeline} path="/projects/:id/timeline" />
+				<Route component={Bookmarks} path="/projects/:id/bookmarks" />
+				<Route component={Assets} path="/projects/:id/assets" />
 			</Switch>
 		</Router>
 	);

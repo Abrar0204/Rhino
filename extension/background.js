@@ -25,29 +25,36 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	);
 	if (request.reqType == "assets") {
 		console.log("assets");
-		chrome.storage.local.get(["accessToken"], async token => {
-			if (token.accessToken) {
-				let { data, type } = request;
-				console.log(data);
-				try {
-					let res = await fetch("http://localhost:5000/api/assets", {
-						method: "POST",
-						body: JSON.stringify({
-							data,
-							type,
-						}),
-						headers: {
-							"Content-type": "application/json; charset=UTF-8",
-							Authorization: `Bearer ${token.accessToken} `,
-						},
-					});
-					sendResponse(true);
-				} catch (err) {
-					console.log(err);
-					sendResponse(false);
+		chrome.storage.local.get(
+			["accessToken", "selectedProject"],
+			async token => {
+				if (token.accessToken) {
+					let { data, type } = request;
+					console.log(token);
+					try {
+						let res = await fetch(
+							`http://localhost:5000/api/projects/assets/${token.selectedProject}`,
+							{
+								method: "PUT",
+								body: JSON.stringify({
+									data,
+									type,
+								}),
+								headers: {
+									"Content-type":
+										"application/json; charset=UTF-8",
+									Authorization: `Bearer ${token.accessToken} `,
+								},
+							}
+						);
+						sendResponse(true);
+					} catch (err) {
+						console.log(err);
+						sendResponse(false);
+					}
 				}
 			}
-		});
+		);
 	}
 });
 

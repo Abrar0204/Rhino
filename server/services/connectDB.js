@@ -9,7 +9,7 @@ const connectDB = async () => {
 		});
 		console.log("Database Connected " + conn.connection.host);
 	} catch (err) {
-		console.log("Error");
+		console.log(err);
 	}
 };
 

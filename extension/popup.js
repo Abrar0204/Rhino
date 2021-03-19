@@ -1,12 +1,84 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("form");
 	const greetingTag = document.getElementById("greeting");
+	const projectSelector = document.getElementById("project-selector");
+	const selectElement = document.getElementById("select-element");
+	const signOut = document.getElementById("signout");
+	const loader = document.getElementById("loader");
 
-	chrome.storage.local.get(["accessToken", "username"], data => {
+	chrome.storage.local.get(["accessToken", "username"], async data => {
 		if (data.accessToken && data.username) {
-			greetingTag.textContent = `Hello, ${data.username}`;
-			form.style.display = "none";
+			showForm(false);
+			showLoader(true);
+			await getProjects(data.accessToken, data.username);
+			showLoader(false);
+			showHome(true);
 		}
+	});
+
+	const showHome = show => {
+		if (show) {
+			projectSelector.classList.remove("hidden");
+			return;
+		}
+		projectSelector.classList.add("hidden");
+	};
+	const showForm = show => {
+		if (show) {
+			form.classList.remove("hidden");
+			return;
+		}
+		form.classList.add("hidden");
+	};
+	const showLoader = show => {
+		if (show) {
+			loader.classList.remove("hidden");
+			return;
+		}
+		loader.classList.add("hidden");
+	};
+
+	const getProjects = async (accessToken, username) => {
+		try {
+			const res = await fetch("http://localhost:5000/api/projects", {
+				method: "GET",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${accessToken} `,
+				},
+			});
+			removeChildrenOfElement(selectElement);
+			greetingTag.textContent = `Hello, ${username}`;
+			const data = await res.json();
+
+			data.projects.forEach(project => {
+				let option = document.createElement("option");
+				option.value = project._id;
+				option.innerText = project.name;
+
+				selectElement.appendChild(option);
+			});
+			chrome.storage.local.set({
+				selectedProject: data.projects[0]._id,
+			});
+			selectElement.addEventListener("click", e => {
+				chrome.storage.local.set({
+					selectedProject: e.target.value,
+				});
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	signOut.addEventListener("click", () => {
+		chrome.storage.local.remove([
+			"accessToken",
+			"selectedProject",
+			"username",
+		]);
+		form.classList.remove("hidden");
+		projectSelector.classList.add("hidden");
 	});
 	class Bookmark {
 		type = "";
@@ -37,8 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const getBookmarksTreeAndLogin = () => {
 		let rootNode;
-		let email = document.querySelector(".email").value;
-		let password = document.querySelector(".password").value;
+		let email = document.getElementsByClassName("email")[0];
+		let password = document.getElementsByClassName("password")[0];
 
 		chrome.bookmarks.getTree(res => {
 			const element = res[0];
@@ -53,22 +125,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			addChildren(element.children, rootNode);
 
-			login(email, password, rootNode);
+			login(email.value, password.value, rootNode);
+			email.value = "";
+			password.value = "";
 		});
 	};
 
+	const removeChildrenOfElement = parent => {
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+	};
+
 	const login = async (email, password, bookmarkTree) => {
-		// try {
-		// 	const res = await fetch("http://localhost:5000/api/bookmarks", {
-		// 		method: "POST",
-		// 		body: JSON.stringify(bookmarks),
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 	});
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		showForm(false);
+		showLoader(true);
 		const res = await fetch(
 			"http://localhost:5000/api/auth/login/extension",
 			{
@@ -90,6 +161,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				accessToken: data.accessToken,
 				username: data.user.username,
 			});
+			showForm(false);
+			showLoader(true);
+
+			await getProjects(data.accessToken, data.user.username);
+			showLoader(false);
+			showHome(true);
 		} else {
 			console.log(data);
 			console.log("Error");
