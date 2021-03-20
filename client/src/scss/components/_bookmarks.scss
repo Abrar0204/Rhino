@@ -1,0 +1,49 @@
+.bookmarks-grid {
+	display: grid;
+	gap: 3rem;
+	grid-template-columns: repeat(3, 300px);
+	grid-template-rows: auto;
+	padding: 10px;
+	justify-content: center;
+	cursor: pointer;
+	:hover {
+		background-color: $primary-color;
+		color: $light-color;
+	}
+
+	&-item {
+		display: flex;
+		box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.1);
+		background-color: white;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 5rem;
+		border-radius: 1rem;
+
+		.icon {
+			height: 5rem;
+			width: 5rem;
+			margin-bottom: 2rem;
+		}
+	}
+}
+
+.bookmarks {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5rem 10rem;
+	.back-button-container {
+		align-self: flex-start;
+
+		.back-button {
+			height: 5rem;
+			width: 5rem;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}

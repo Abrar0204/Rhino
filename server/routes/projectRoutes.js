@@ -114,4 +114,16 @@ router.put("/assets/:projectId", authenticateToken, async (req, res) => {
 	}
 });
 
+router.get("/assets/:id", authenticateToken, async (req, res) => {
+	try {
+		const projectId = req.params.id;
+		const project = await Project.findById(projectId);
+		const assets = await Assets.findById(project.assets);
+		res.json(assets.assets);
+	} catch (err) {
+		console.log(err);
+		res.status(401).json({ error: "asset post" });
+	}
+});
+
 module.exports = router;

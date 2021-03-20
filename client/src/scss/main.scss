@@ -5,6 +5,7 @@
 @import "./components/navbar";
 @import "./components/sharedComp";
 @import "./components/bookmarks";
+@import "./components/assets";
 
 .signin {
 	width: 100%;
@@ -56,8 +57,8 @@
 
 .project {
 	&-card {
-		height: 200px;
-		width: 300px;
+		height: 230px;
+		width: 350px;
 		background-color: white;
 
 		display: grid;
@@ -65,7 +66,7 @@
 		grid-template-rows: 60px 40px 80px;
 		padding: 1rem 1.5rem;
 		border-radius: 10px;
-		box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.1);
+		box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.3);
 		&:hover {
 			cursor: pointer;
 		}
@@ -99,16 +100,77 @@
 	justify-content: center;
 	align-items: center;
 	padding: 3rem 7rem;
-	& > .title {
-		font-size: 4rem;
-		align-self: flex-start;
-		margin-bottom: 3rem;
+	&-header {
+		height: 40vh;
+		width: 100%;
+		background-color: $primary-color;
+		position: absolute;
+		top: 0;
+		left: 0;
+		img {
+			height: 50vh;
+			width: 50vh;
+			position: absolute;
+			opacity: 0.2;
+		}
 	}
-	&-container {
-		display: grid;
-		grid-template-columns: repeat(3, 300px);
-		grid-template-rows: repeat(auto-fit, 200px);
+	&-content {
+		position: relative;
+		z-index: 10;
+		top: 10vh;
+		&-title {
+			font-size: 4rem;
+			align-self: flex-start;
+			margin-bottom: 3rem;
+			color: $light-color;
+		}
+		&-container {
+			display: grid;
+			grid-template-columns: repeat(3, 350px);
+			grid-template-rows: repeat(auto-fit, 230px);
 
-		gap: 3rem;
+			gap: 3rem;
+
+			.project-card {
+				height: 230px;
+				width: 350px;
+				background-color: white;
+
+				display: grid;
+				grid-template-columns: 100%;
+				grid-template-rows: 60px 40px 80px;
+				padding: 1rem 1.5rem;
+				border-radius: 10px;
+				box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.3);
+				&:hover {
+					cursor: pointer;
+				}
+				.title {
+					font-size: 2.2rem;
+					font-weight: bold;
+					align-self: center;
+				}
+				&-avatar-container {
+					align-self: flex-end;
+				}
+				.tags {
+					justify-self: flex-start;
+					.tag {
+						background-color: $primary-color;
+						border-radius: 1000px;
+						color: $light-color;
+						padding: 0.2rem 0.8rem;
+						margin: 0.5rem 0rem;
+						font-size: 1.4rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+.project {
+	&-screen {
+		margin-left: 30rem;
 	}
 }

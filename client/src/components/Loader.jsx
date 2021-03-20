@@ -1,9 +1,9 @@
 import React from "react";
 
-const Loader = () => {
+const Loader = ({ color }) => {
 	return (
 		<div className="loader">
-			<div className="bouncer">
+			<div className={`bouncer ${color}`}>
 				<div></div>
 				<div></div>
 				<div></div>

@@ -3,6 +3,7 @@ const { Assets } = require("../models/Assets");
 const { User } = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { Project } = require("../models/Project");
 const router = require("express").Router();
 
 router.post("/", authenticateToken, async (req, res) => {

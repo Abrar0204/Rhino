@@ -22,6 +22,8 @@ const createRhinoModal = () => {
 		//Data dropped by user
 		let data = ev.dataTransfer.getData("text");
 
+		console.log(data);
+
 		let expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 		let urlRegex = RegExp(expression);
 
@@ -41,9 +43,22 @@ const createRhinoModal = () => {
 };
 
 //Show and hide Rhino model
+// const images = [...document.getElementsByTagName("img")];
+
+// images.forEach(img => {
+// 	img.addEventListener("drag", () => {
+// 		if (!document.getElementById("rhino")) createRhinoModal();
+// 	});
+// 	img.addEventListener("dragend", () => {
+// 		if (document.getElementById("rhino"))
+// 			document.getElementById("rhino").remove();
+// 	});
+// });
+
 document.addEventListener("drag", () => {
 	if (!document.getElementById("rhino")) createRhinoModal();
 });
+
 document.addEventListener("dragend", () => {
 	if (document.getElementById("rhino"))
 		document.getElementById("rhino").remove();

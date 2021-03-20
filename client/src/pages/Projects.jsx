@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Loader from "../components/Loader";
 import ProjectCard from "../components/ProjectCard";
-
+import { default as Logo } from "../assets/svgs/Logo-white.svg";
 import { getAllProjects } from "../redux/actions/projectsActions";
 
 const Projects = () => {
@@ -21,23 +21,30 @@ const Projects = () => {
 	}, [loggedIn, dispatch, history]);
 
 	const gotoProject = projectId => {
-		history.push(`/projects/${projectId}`);
+		history.push(`/projects/${projectId}/timeline`);
 	};
 
-	return loading ? (
-		<Loader />
-	) : (
+	return (
 		<div className="projects">
-			<h1 className="title">Your Projects</h1>
-			<div className="projects-container">
-				{projects.map(project => (
-					<ProjectCard
-						key={project._id}
-						project={project}
-						gotoProject={gotoProject}
-					/>
-				))}
+			<div className="projects-header">
+				<img src={Logo} alt="Logo-white" />
 			</div>
+			{loading ? (
+				<Loader color="light" />
+			) : (
+				<div className="projects-content">
+					<h1 className="projects-content-title">Your Projects</h1>
+					<div className="projects-content-container">
+						{projects.map(project => (
+							<ProjectCard
+								key={project._id}
+								project={project}
+								gotoProject={gotoProject}
+							/>
+						))}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

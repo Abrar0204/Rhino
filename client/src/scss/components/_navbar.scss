@@ -32,3 +32,66 @@
 		justify-self: center;
 	}
 }
+
+.sidebar {
+	height: 100vh;
+	width: 30rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: $primary-color;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+
+	&-logo {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		width: 80%;
+		margin: 3rem 0rem;
+		&:hover {
+			cursor: pointer;
+		}
+		img {
+			width: 6rem;
+			height: 6rem;
+		}
+		h1 {
+			font-weight: 600;
+			font-size: 4rem;
+			color: $light-color;
+		}
+	}
+
+	&-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+		&-item {
+			padding: 2rem 0rem;
+
+			text-decoration: none;
+			color: $light-color;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			width: 100%;
+			&.selected {
+				background-color: #1c2c54;
+			}
+			svg {
+				margin-left: 3rem;
+			}
+			h1 {
+				color: $light-color;
+
+				font-size: 2.2rem;
+				margin-left: 2rem;
+			}
+		}
+	}
+}
