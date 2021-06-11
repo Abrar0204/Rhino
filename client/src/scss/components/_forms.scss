@@ -1,0 +1,136 @@
+.form {
+	margin: 3rem 0rem;
+	.developer-selector-group {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		.form-item {
+			width: 75%;
+		}
+		.form-button-add {
+			text-align: center;
+			width: 20%;
+			height: 100%;
+			padding: 1rem;
+			margin-left: 1rem;
+			background-color: $primary-color;
+			color: white;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+
+	&-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		margin: 2rem 0rem;
+		height: 8rem;
+		&-group {
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			margin: 2rem 0rem;
+			&-item {
+				width: 45%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				select {
+					-webkit-appearance: none;
+					width: 100%;
+					height: 5rem;
+					border: 1px solid $primary-color;
+					font-size: 1.6rem;
+					padding: 0rem 1rem;
+				}
+				label {
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+		}
+
+		select {
+			-webkit-appearance: none;
+		}
+
+		input,
+		textarea {
+			height: 70%;
+			width: 100%;
+			padding: 0rem 2rem;
+
+			font-size: 1.6rem;
+
+			border: none;
+			border-bottom: 1px solid $primary-color;
+			outline: none;
+
+			background-color: rgba($primary-color, 0);
+			transition: all 0.3s ease;
+
+			&[type="date"] {
+				&:required:invalid::-webkit-datetime-edit {
+					color: transparent;
+				}
+			}
+
+			&:focus {
+				background-color: rgba($primary-color, 0.04);
+
+				& + label {
+					top: 0rem;
+					left: 0rem;
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+			&:valid {
+				& + label {
+					top: 0rem;
+					left: 0rem;
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+		}
+		label {
+			position: absolute;
+			top: 50%;
+			left: 2rem;
+			transform: translateY(-50%);
+			pointer-events: none;
+			transition: all 0.3s ease;
+		}
+		textarea {
+			padding-top: 1.5rem;
+			resize: none;
+		}
+	}
+	&-button {
+		text-align: center;
+		button {
+			width: 90%;
+			padding: 1rem 2rem;
+			margin: 2rem 1rem;
+			background-color: $secondary-color;
+			color: $light-color;
+			font-weight: 600;
+			font-size: 1.8rem;
+			border: none;
+			outline: none;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	&-error {
+		text-align: center;
+		color: red;
+	}
+}

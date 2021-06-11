@@ -1,0 +1,165 @@
+.timeline {
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+	grid-template-rows: 50% 50%;
+
+	height: 100vh;
+
+	&-tasks {
+		padding: 3rem 2rem;
+
+		.no-tasks {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 3rem;
+			h1 {
+				font-weight: 400;
+			}
+		}
+
+		& > .title {
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			align-items: center;
+			h1 {
+				font-size: 2.2rem;
+			}
+			svg {
+				height: 4rem;
+				width: 4rem;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+
+		&-add {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			.form {
+				z-index: 1000;
+				height: 70rem;
+				width: 50rem;
+				background-color: white;
+				padding: 3rem 3rem;
+				margin: 0rem;
+				overflow-y: scroll;
+
+				&-item {
+					label {
+						top: 0rem;
+						left: 0rem;
+						color: $primary-color;
+						font-weight: 600;
+					}
+				}
+				.developer-tag {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					flex-wrap: wrap;
+					&-item {
+						padding: 0.5rem 0.8rem;
+						background-color: $primary-color;
+						margin: 1rem;
+						margin-top: 0.5rem;
+						border-radius: 1000px;
+						color: white;
+					}
+				}
+			}
+		}
+		&-grid {
+			padding: 5rem 2rem;
+			height: 100%;
+			width: 100%;
+			grid-row: 1/3;
+			display: grid;
+			grid-template-columns: 35rem 35rem;
+			grid-template-rows: auto;
+			justify-content: center;
+
+			gap: 3rem;
+
+			&-item {
+				height: 30rem;
+				width: 35rem;
+				background-color: white;
+				border-radius: 10px;
+				padding: 2rem 2.5rem;
+				box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.1);
+
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				align-items: flex-start;
+
+				.today {
+					margin-top: 1rem;
+					width: 100%;
+					background-color: #4671f1;
+					color: white;
+					border-radius: 1000px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: 0.5rem;
+					svg {
+						margin-right: 1rem;
+					}
+
+					&.start {
+						background-color: #4671f1;
+					}
+					&.end {
+						background-color: #c20000;
+					}
+				}
+
+				.developers {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					.avatar {
+						margin-right: 0.5rem;
+					}
+				}
+
+				.description {
+					color: grey;
+				}
+				.priority {
+					padding: 0.5rem 1.5rem;
+					color: white;
+					border-radius: 10000px;
+					&.high {
+						background-color: red;
+					}
+					&.medium {
+						background-color: green;
+					}
+					&.low {
+						background-color: blue;
+					}
+				}
+			}
+		}
+	}
+	&-ongoing {
+		height: 100%;
+		width: 100%;
+		grid-row: 2/3;
+		grid-column: 2/3;
+	}
+	&-calendar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

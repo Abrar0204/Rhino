@@ -1,0 +1,107 @@
+.navbar {
+	width: 100%;
+	height: 10rem;
+	display: grid;
+	grid-template-rows: 100%;
+	grid-template-columns: 10% 1fr 10%;
+	align-items: center;
+	&-logo {
+		justify-self: center;
+
+		height: 5rem;
+		width: 5rem;
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&-list {
+		justify-self: flex-end;
+
+		&-item {
+			padding: 2rem 3rem;
+			text-decoration: none;
+			color: $primary-color;
+			font-size: 1.8rem;
+			&.selected {
+				border-bottom: 2px solid $primary-color;
+			}
+		}
+	}
+	&-profile {
+		justify-self: center;
+	}
+}
+
+.sidebar {
+	height: 100vh;
+	width: 30rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: $primary-color;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+
+	&-logo {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		width: 60%;
+		margin: 3rem 0rem;
+		&:hover {
+			cursor: pointer;
+		}
+		img {
+			width: 5rem;
+			height: 5rem;
+		}
+		h1 {
+			font-weight: 600;
+			font-size: 3rem;
+			color: $light-color;
+		}
+	}
+
+	.project-name {
+		margin: 2rem 2rem;
+		align-self: flex-start;
+
+		h1 {
+			font-size: 3.2rem;
+			color: white;
+		}
+	}
+
+	&-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+		&-item {
+			padding: 2rem 0rem;
+
+			text-decoration: none;
+			color: $light-color;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			width: 100%;
+			&.selected {
+				background-color: #1c2c54;
+			}
+			svg {
+				margin-left: 3rem;
+			}
+			h1 {
+				color: $light-color;
+
+				font-size: 2.2rem;
+				margin-left: 2rem;
+			}
+		}
+	}
+}

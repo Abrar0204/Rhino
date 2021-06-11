@@ -1,0 +1,206 @@
+@import "./components/variable";
+@import "./components/loading";
+@import "./components/base";
+@import "./components/forms";
+@import "./components/navbar";
+@import "./components/sharedComp";
+@import "./components/bookmarks";
+@import "./components/assets";
+@import "./components/calendar";
+@import "./components/timeline";
+
+.signin {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.logo {
+			width: 20rem;
+			height: 20rem;
+			margin: 2rem;
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+		h1 {
+			margin: 1rem;
+			font-size: 3rem;
+		}
+	}
+	&-form-container {
+		width: 35rem;
+		.tabs {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			&-item {
+				padding: 2rem 1.5rem;
+				width: 50%;
+				text-align: center;
+				font-weight: 600;
+				font-size: 1.8rem;
+				&:hover {
+					cursor: pointer;
+				}
+				&.selected {
+					border-bottom: 3px solid $primary-color;
+				}
+			}
+		}
+	}
+}
+
+.projects {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 3rem 7rem;
+	&-add {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		.form {
+			z-index: 1000;
+
+			width: 50rem;
+			background-color: white;
+			padding: 2rem 3rem;
+			&-item {
+				label {
+					top: 0rem;
+					left: 0rem;
+					color: $primary-color;
+					font-weight: 600;
+				}
+			}
+			.developer-tag {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				flex-wrap: wrap;
+				&-item {
+					padding: 0.5rem 0.8rem;
+					background-color: $primary-color;
+					margin: 1rem;
+					margin-top: 0.5rem;
+					border-radius: 1000px;
+					color: white;
+				}
+			}
+		}
+	}
+	&-header {
+		height: 40vh;
+		width: 100%;
+		background-color: $primary-color;
+		position: absolute;
+		top: 0;
+		left: 0;
+		img {
+			height: 50vh;
+			width: 50vh;
+			position: absolute;
+			opacity: 0.2;
+		}
+		.signout {
+			position: absolute;
+			padding: 1rem 1.5rem;
+			color: white;
+			background-color: #c20000;
+			border-radius: 10px;
+			right: 1rem;
+			top: 1rem;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	&-content {
+		position: relative;
+		z-index: 10;
+		top: 10vh;
+		&-title {
+			font-size: 4rem;
+			align-self: flex-start;
+			margin-bottom: 3rem;
+			color: $light-color;
+		}
+		&-container {
+			display: grid;
+			grid-template-columns: repeat(3, 350px);
+			grid-template-rows: repeat(auto-fit, 230px);
+
+			gap: 3rem;
+
+			.project-card {
+				height: 230px;
+				width: 350px;
+				background-color: white;
+
+				display: grid;
+				grid-template-columns: 100%;
+				grid-template-rows: 60px 40px 80px;
+				padding: 1rem 1.5rem;
+				border-radius: 10px;
+				box-shadow: 0.5px 0.5px 10px rgba($primary-color, 0.3);
+
+				&.add {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					svg {
+						width: 5rem;
+						height: 5rem;
+						margin: 2rem;
+					}
+				}
+				&:hover {
+					cursor: pointer;
+				}
+				.title {
+					font-size: 2.2rem;
+					font-weight: bold;
+					align-self: center;
+				}
+				&-avatar-container {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					.avatar {
+						margin-right: 0.5rem;
+					}
+				}
+				.tags {
+					justify-self: flex-start;
+					.tag {
+						background-color: $primary-color;
+						border-radius: 1000px;
+						color: $light-color;
+						padding: 0.2rem 0.8rem;
+						margin: 0.5rem 0rem;
+						font-size: 1.4rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+.project {
+	&-screen {
+		margin-left: 30rem;
+	}
+}

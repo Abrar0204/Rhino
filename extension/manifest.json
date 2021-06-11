@@ -1,0 +1,31 @@
+{
+	"name": "Rhino",
+	"version": "1.0",
+	"description": "Project manager for developers",
+	"manifest_version": 2,
+	"permissions": ["activeTab", "bookmarks", "storage"],
+	"browser_action": {
+		"default_popup": "popup.html",
+		"default_title": "Rhino",
+		"icons": {
+			"16": "Logo.png",
+			"48": "Logo.png",
+			"128": "Logo.png"
+		}
+	},
+	"icons": {
+		"16": "Logo.png",
+		"48": "Logo.png",
+		"128": "Logo.png"
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content.js"],
+			"css": ["content.css"]
+		}
+	]
+}
