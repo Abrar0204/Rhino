@@ -22,7 +22,6 @@ const TaskCard = ({ task, currentDate }) => {
 	};
 
 	const startOrEnd = () => {
-		console.log(convertToDateString(currentDate.valueOf()));
 		return task.endDate === convertToDateString(currentDate.valueOf())
 			? "end"
 			: "start";

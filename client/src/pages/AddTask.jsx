@@ -13,7 +13,7 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 	const [error, setError] = useState("");
 
 	const projects = useSelector(state => state.projects.projects);
-
+	const currentProject = projects.find(pro => pro._id === id);
 	const dispatch = useDispatch();
 	const setItems = e => {
 		const { name, value } = e.target;
@@ -43,17 +43,19 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 		let startDateString = new Date(startDate.replace(/-/g, "/"))
 			.valueOf()
 			.toString();
-		console.log(startDate);
-		console.log(startDateString);
+
 		let endDateString = new Date(endDate.replace(/-/g, "/"))
 			.valueOf()
 			.toString();
 
-		let currentProject = projects.find(pro => pro._id === id);
 		let developersId = [];
+
 		currentProject.developers.map(develop => {
-			if (developers.includes(develop.email))
-				developersId.push(develop.id);
+			developers.forEach(dev => {
+				if (dev.email.includes(develop.email)) {
+					developersId.push(develop.id);
+				}
+			});
 		});
 
 		let task = {
@@ -68,23 +70,6 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 
 		dispatch(updateTasks(id, task));
 		closeModel();
-	};
-	const addDeveloper = () => {
-		if (!developerEmail) return setError("Enter a email");
-		let currentProject = projects.filter(pro => pro._id === id)[0];
-		if (
-			currentProject.developers.find(
-				develop => develop.email === developerEmail
-			)
-		) {
-			if (developers.includes(developerEmail))
-				return setError("Already added");
-			setDevelopers(prev => [...prev, developerEmail]);
-			setDeveloperEmail("");
-			setError("");
-		} else {
-			setError("No developer found with this email in this project.");
-		}
 	};
 
 	const checkIfEmailIsInArray = (email, array) => {
@@ -154,20 +139,6 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 					</div>
 				</div>
 
-				{/* <div className="developer-selector-group">
-					<div className="form-item ">
-						<input
-							type="text"
-							name="developers"
-							value={developerEmail}
-							onChange={setItems}
-						/>
-						<label htmlFor="developers">Search Developers</label>
-					</div>
-					<div className="form-button-add" onClick={addDeveloper}>
-						Add
-					</div>
-				</div> */}
 				<div className="form-item suggestion">
 					<input
 						type="text"
@@ -178,7 +149,7 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 					<label htmlFor="developers">Add Developers</label>
 					<div className="suggestion-box">
 						{checkIfEmailIsInArray(developerEmail, allUsers) &&
-							allUsers.map(user =>
+							currentProject.developers.map(user =>
 								user.email.includes(developerEmail) ? (
 									<p
 										key={user.email}

@@ -31,7 +31,7 @@ const Timeline = ({ match }) => {
 			addZeroInBegginning(dateObj.getMonth() + 1) +
 			"/" +
 			dateObj.getFullYear().toString();
-		console.log(dateString);
+
 		return dateString.trim();
 	};
 	const addZeroInBegginning = (number = 0) => {
