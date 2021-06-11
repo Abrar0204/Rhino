@@ -4,8 +4,8 @@ import { useHistory } from "react-router";
 import { loginAction } from "../redux/actions/authActions";
 
 const SigninForm = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("rhino@gmail.com");
+	const [password, setPassword] = useState("Rhino");
 	const [error, setError] = useState("");
 
 	const dispatch = useDispatch();
@@ -23,7 +23,8 @@ const SigninForm = () => {
 	};
 
 	function validateEmail(email) {
-		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const re =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(String(email).toLowerCase());
 	}
 	const signin = e => {

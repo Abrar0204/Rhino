@@ -40,13 +40,14 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 
 	const submit = e => {
 		e.preventDefault();
-		let startDateString = new Date(startDate.replace(/-/g, "/"))
-			.valueOf()
-			.toString();
+		let startDateString = new Date(startDate.replace(/-/g, "/"));
+		startDateString.setHours(12);
+		console.log(startDateString);
+		startDateString = startDateString.valueOf().toString();
 
-		let endDateString = new Date(endDate.replace(/-/g, "/"))
-			.valueOf()
-			.toString();
+		let endDateString = new Date(endDate.replace(/-/g, "/"));
+		endDateString.setHours(12);
+		endDateString = endDateString.valueOf().toString();
 
 		let developersId = [];
 

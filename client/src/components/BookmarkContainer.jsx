@@ -3,10 +3,12 @@ import { UilFolder, UilAngleLeftB } from "@iconscout/react-unicons";
 import { default as Bookmark } from "../assets/svgs/Vector.svg";
 const BookmarkContainer = ({ bookmarkNode = {} }) => {
 	const [prev, setPrev] = useState({});
+	const [pree, setPree] = useState({});
 	const [root, setRoot] = useState(bookmarkNode);
 
 	const goBack = () => {
 		setRoot(prev);
+		setPrev(pree);
 	};
 
 	const getDomainName = (url = "") => {
@@ -33,8 +35,9 @@ const BookmarkContainer = ({ bookmarkNode = {} }) => {
 									key={child.title}
 									className="bookmarks-grid-item"
 									onClick={() => {
+										setPree(prev);
+										setPrev(root);
 										setRoot(child);
-										setPrev(bookmarkNode);
 									}}
 								>
 									<UilFolder className="icon" />
