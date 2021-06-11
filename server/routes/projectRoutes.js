@@ -144,8 +144,7 @@ const convertToDateString = date => {
 		"/" +
 		addZeroInBegginning(dateObj.getMonth() + 1) +
 		"/" +
-		dateObj.getFullYear().toString() +
-		" ";
+		dateObj.getFullYear().toString();
 
 	return dateString.trim();
 };

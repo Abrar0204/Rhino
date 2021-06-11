@@ -10,8 +10,7 @@ const TaskCard = ({ task, currentDate }) => {
 			"/" +
 			addZeroInBegginning(dateObj.getMonth() + 1) +
 			"/" +
-			dateObj.getFullYear().toString() +
-			" ";
+			dateObj.getFullYear().toString();
 
 		return dateString.trim();
 	};
