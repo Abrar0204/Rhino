@@ -6,7 +6,7 @@ const TaskCard = ({ task, currentDate }) => {
 		const dateObj = new Date(parseInt(date));
 
 		const dateString =
-			addZeroInBegginning(dateObj.getDate() - 1) +
+			addZeroInBegginning(dateObj.getDate()) +
 			"/" +
 			addZeroInBegginning(dateObj.getMonth() + 1) +
 			"/" +
@@ -22,10 +22,12 @@ const TaskCard = ({ task, currentDate }) => {
 		return number.toString().trim();
 	};
 
-	const startOrEnd = () =>
-		task.endDate === convertToDateString(currentDate.valueOf())
+	const startOrEnd = () => {
+		console.log(convertToDateString(currentDate.valueOf()));
+		return task.endDate === convertToDateString(currentDate.valueOf())
 			? "end"
 			: "start";
+	};
 	return (
 		<div
 			key={task.title}
@@ -52,7 +54,6 @@ const TaskCard = ({ task, currentDate }) => {
 				</div>
 			) : (
 				<div className="today end">
-					{" "}
 					<UilExclamationTriangle /> Ends Today
 				</div>
 			)}

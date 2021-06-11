@@ -43,7 +43,8 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 		let startDateString = new Date(startDate.replace(/-/g, "/"))
 			.valueOf()
 			.toString();
-
+		console.log(startDate);
+		console.log(startDateString);
 		let endDateString = new Date(endDate.replace(/-/g, "/"))
 			.valueOf()
 			.toString();
@@ -116,8 +117,8 @@ const AddTask = ({ id, closeModel, allUsers, user: curUser }) => {
 					/>
 					<label htmlFor="title">Title</label>
 				</div>
-				<div className="form-item textarea">
-					<textarea
+				<div className="form-item ">
+					<input
 						type="text"
 						name="description"
 						required
